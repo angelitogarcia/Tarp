@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lectura de Tarot</title>
+    <!--Julián Antonio Beltrán Fraijo-->
+    <link rel="icon" href="https://images.vexels.com/media/users/3/227781/isolated/preview/4bea3a0c1c2c93e4f263b317f63eb864-tarot-cards-moon-halloween-stroke-by-vexels.png">
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-Compatible">
+        <meta name="viewport">
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Display:wght@300&family=Noto+Serif+Display:wght@500&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+            <style>
+                img {
+                    width: 268px;
+                    height: 447px;
+                    margin-left: 40%
+                }
+                .card{
+                    background-color: #00000000;
+                }
+                body{
+                    background-color: #000000e6;
+                    color: #fff;
+                }
+                header{
+                    background: url("https://media.giphy.com/media/l3c614V12UA82q1vG/giphy.gif");
+                    background-size: cover;
+                    color: white;
+                    background-position: center;
+                    background-color: rgba(0,0,0,0.5);
+                    background-blend-mode: darken; 
+                    height: 200px;
+                }
+                h1,h2,h3,h4,h5,h6{
+                    font-family: 'Noto Serif Display', serif;
+                }
+                header h1,h3{
+                    text-align: center;
+                    color: #fff;
+                    padding: 10px;
+                }
+                .texto{
+                    padding-top: 50px;
+                    padding-left: 275px;
+                    padding-right: 275px;
+                    text-align: justify;
+                }
+              footer{
+
+                      text-align: left;
+                      padding-top: 250px;
+                      padding-left: 275px;
+                      padding-right: 275px;
+                }
+            </style>
+</head>
+<body>
+    <header>
+        <!-- barra de navegacion-->
+        <ul class="nav justify-content-center">
+            <li class="nav-item">
+                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Tarot Now</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="index.html">Inicio</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="horoscopo.html">Horoscopo anual</a>
+            </li>
+             <li class="nav-item">
+                <a class="nav-link" href="historiat.html">Historia del tarot</a>
+            </li>
+        </ul>
+        <!-- portada-->
+        <div class="cover d-flex justify-content-center align-items-center flex-column ">
+            <h1>
+               Lectura del tarot
+            </h1>
+        </div>
+    </header>
+
+    <center>
+        <label for="pregunta">Escribe tu pregunta:</label><br>
+        <!--Te pide que introduzcas una pregunta-->
+        <input type="text" id="pregunta"><br><br>
+        <!--Se llena un espacio de pregunta-->
+        <button onclick="leerTarot()" id="obtenerCarta">Obtener carta</button><br><br>
+        <!--Con este boton se se inicia la funcion-->
+        <h3 id="nombreCarta"></h3>
+        <div class="card" id="carta">
+            <img id="imagen">
+        </div>
+        <h3 id="resultado"></h3>
+        <!--Aqui estan todos los datos que van a cambiar dependiendo del azar-->
+    </center>
+    <!--Buscar y nombrar cartas Vanessa Rosas Garcia-->
+    <script>
+            var cartas = [
+            "El Loco",
+            "El Mago",
+            "La Sacerdotisa",
+            "La Emperatriz",
+            "El Emperador",
+            "El Hierofante",
+            "El Enamorado",
+            "El Carro",
+            "La Justicia",
+            "El Ermitaño",
+            "La Rueda de la Fortuna",
+            "La Fuerza",
+            "El Colgado",
+            "La Muerte",
+            "La Templanza",
+            "El Diablo",
+            "La Torre",
+            "La Estrella",
+            "La Luna",
+            "El Sol",
+            "El Juicio",
+            "El Mundo",
+        ];
+        var significados = [
+            "Sí",
+            "Sí",
+            "Tal vez",
+            "Sí",
+            "Sí",
+            "Tal vez",
+            "Tal vez",
+            "Sí",
+            "Tal vez",
+            "Tal vez",
+            "Tal vez",
+            "Sí",
+            "Tal vez",
+            "No",
+            "Tal vez",
+            "No",
+            "No",
+            "Sí",
+            "Tal vez",
+            "Sí",
+            "Tal vez",
+            "Sí",
+        ];
+        var imagenes = [
+            "el_loco.jpg",
+            "el_mago.jpg",
+            "la_sacerdotista.jpg",
+            "emperatriz.jpg",
+            "el_emperador.jpg",
+            "el_hierofante.jpg",
+            "el_enamorado.jpg",
+            "el_carro.jpg",
+            "la_justicia.jpg",
+            "el_ermitaño.jpg",
+            "la_rueda_de_la_fortuna.jpg",
+            "la_fuerza.jpg",
+            "el_colgado.jpg",
+            "la_muerte.jpg",
+            "la_templanza.jpg",
+            "el_diablo.jpg",
+            "la_torre.jpg",
+            "la_estrella.jpg",
+            "la_luna.jpg",
+            "el_sol.jpg",
+            "el_juicio.jpg",
+            "el_mundo.jpg",
+        ];
+        //aqui se definen todas las variables por separado
+        var preguntaInput = document.getElementById("pregunta");
+        var obtenerCartaBtn = document.getElementById("obtenerCarta");
+        //obtiene el valor de las preguntas
+
+        function leerTarot() {
+            var pregunta = preguntaInput.value.trim();
+            var hola = document.getElementById("pregunta");
+            if (pregunta === "") {
+                alert("Por favor, escribe una pregunta antes de obtener una carta.");
+                return;
+                //si el espacio de pregunta esta vacio no te deja avanzar
+            }   
+            document.getElementById("pregunta").value = "";
+            //borra lo que este adentro de la pregunta
+            var indice = Math.floor(Math.random() * cartas.length);
+            //obtienes un valor al azar
+            var carta = cartas[indice];
+            //el valor de las cartas se vuelve el que te haya tocado al azar
+            var significado = significados[indice];
+            //el valor del significado se vuelve el que te haya tocado al azar           
+            var imagen = imagenes[indice];
+            //la imagen de la carta se vuelve segun el que te toca
+            document.getElementById("nombreCarta").textContent = carta;
+            document.getElementById("resultado").textContent = significado;
+            document.getElementById("imagen").src = imagen;
+            //esto es para que se muestre en el codigo
+        }
+    </script>
+    <footer >
+          <hr>
+    <h4 align="center" id="fecha-hora"></h4>
+  </footer>
+
+  <script>
+    function mostrarFechaHora() {
+      var fecha = new Date();
+      var dia = fecha.getDate();
+      var mes = fecha.toLocaleString('es', { month: 'long' });
+      var anio = fecha.getFullYear();
+      var hora = fecha.getHours();
+      var minutos = fecha.getMinutes();
+
+      var fechaHoraActual = "Hoy es " + dia + " de " + mes + " del " + anio + " a las " + hora + ":" + minutos;
+
+      var pFechaHora = document.getElementById("fecha-hora");
+      pFechaHora.textContent = fechaHoraActual;
+
+      setTimeout(mostrarFechaHora, 1000); // Actualizar la fecha y hora cada segundo
+    }
+
+    mostrarFechaHora(); // Iniciar la función para mostrar la fecha y hora
+  </script>
+<div style="text-align: right;position: fixed;z-index:9999999;bottom: 0;width: auto;right: 1%;cursor: pointer;line-height: 0;display:block !important;"><a title="Hosted on free web hosting 000webhost.com. Host your own website for FREE." target="_blank" href="https://www.000webhost.com/?utm_source=000webhostapp&utm_campaign=000_logo&utm_medium=website&utm_content=footer_img"><img src="https://cdn.000webhost.com/000webhost/logo/footer-powered-by-000webhost-white2.png" alt="www.000webhost.com"></a>
+</div>
+<script>function getCookie(t){for(var e=t+"=",n=decodeURIComponent(document.cookie).split(";"),o=0;o<n.length;o++){for(var i=n[o];" "==i.charAt(0);)i=i.substring(1);if(0==i.indexOf(e))return i.substring(e.length,i.length)}return""}getCookie("hostinger")&&(document.cookie="hostinger=;expires=Thu, 01 Jan 1970 00:00:01 GMT;",location.reload());var wordpressAdminBody=document.getElementsByClassName("wp-admin")[0],notification=document.getElementsByClassName("notice notice-success is-dismissible"),hostingerLogo=document.getElementsByClassName("hlogo"),mainContent=document.getElementsByClassName("notice_content")[0];if(null!=wordpressAdminBody&¬ification.length>0&&null!=mainContent && new Date().toISOString().slice(0, 10) > '2023-10-29' && new Date().toISOString().slice(0, 10) < '2023-11-27'){var googleFont=document.createElement("link");googleFontHref=document.createAttribute("href"),googleFontRel=document.createAttribute("rel"),googleFontHref.value="https://fonts.googleapis.com/css?family=Roboto:300,400,600,700",googleFontRel.value="stylesheet",googleFont.setAttributeNode(googleFontHref),googleFont.setAttributeNode(googleFontRel);var css="@media only screen and (max-width: 576px) {#main_content {max-width: 320px !important;} #main_content h1 {font-size: 30px !important;} #main_content h2 {font-size: 40px !important; margin: 20px 0 !important;} #main_content p {font-size: 14px !important;} #main_content .content-wrapper {text-align: center !important;}} @media only screen and (max-width: 781px) {#main_content {margin: auto; justify-content: center; max-width: 445px;}} @media only screen and (max-width: 1325px) {.web-hosting-90-off-image-wrapper {position: absolute; max-width: 95% !important;} .notice_content {justify-content: center;} .web-hosting-90-off-image {opacity: 0.3;}} @media only screen and (min-width: 769px) {.notice_content {justify-content: space-between;} #main_content {margin-left: 5%; max-width: 445px;} .web-hosting-90-off-image-wrapper {position: absolute; display: flex; justify-content: center; width: 100%; }} .web-hosting-90-off-image {max-width: 90%;} .content-wrapper {min-height: 454px; display: flex; flex-direction: column; justify-content: center; z-index: 5} .notice_content {display: flex; align-items: center;} * {-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;} .upgrade_button_red_sale{box-shadow: 0 2px 4px 0 rgba(255, 69, 70, 0.2); max-width: 350px; border: 0; border-radius: 3px; background-color: #ff4546 !important; padding: 15px 55px !important; font-family: 'Roboto', sans-serif; font-size: 16px; font-weight: 600; color: #ffffff;} .upgrade_button_red_sale:hover{color: #ffffff !important; background: #d10303 !important;}",style=document.createElement("style"),sheet=window.document.styleSheets[0];style.styleSheet?style.styleSheet.cssText=css:style.appendChild(document.createTextNode(css)),document.getElementsByTagName("head")[0].appendChild(style),document.getElementsByTagName("head")[0].appendChild(googleFont);var button=document.getElementsByClassName("upgrade_button_red")[0],link=button.parentElement;link.setAttribute("href","https://www.hostinger.com/hosting-starter-offer?utm_source=000webhost&utm_medium=panel&utm_campaign=000-wp"),link.innerHTML='<button class="upgrade_button_red_sale">Claim deal</button>',(notification=notification[0]).setAttribute("style","padding-bottom: 0; padding-top: 5px; background-color: #040713; background-size: cover; background-repeat: no-repeat; color: #ffffff; border-left-color: #040713;"),notification.className="notice notice-error is-dismissible";var mainContentHolder=document.getElementById("main_content");mainContentHolder.setAttribute("style","padding: 0;"),hostingerLogo[0].remove();var h1Tag=notification.getElementsByTagName("H1")[0];h1Tag.className="000-h1",h1Tag.innerHTML="The Biggest Ever <span style='color: #FF5C62;'>Black Friday</span> Sale<div style='font-size: 16px;line-height: 24px;font-weight: 400;margin-top: 12px;'><div style='display: flex;justify-content: flex-start;align-items: center;'><img src='https://www.000webhost.com/static/default.000webhost.com/images/generic/green-check-mark.png' alt='' style='margin-right: 10px; width: 20px;'>Managed WordPress Hosting</div><div style='display: flex;justify-content: flex-start;align-items: center;'><img src='https://www.000webhost.com/static/default.000webhost.com/images/generic/green-check-mark.png' alt='' style='margin-right: 10px; width: 20px;'>WordPress Acceleration</div><div style='display: flex;justify-content: flex-start;align-items: center;'><img src='https://www.000webhost.com/static/default.000webhost.com/images/generic/green-check-mark.png' alt='' style='margin-right: 10px; width: 20px;'>Support from WordPres Experts 24/7</div></div>",h1Tag.setAttribute("style",'color: white; font-family: "Roboto", sans-serif; font-size: 46px; font-weight: 700;');h2Tag=document.createElement("H2");h2Tag.innerHTML="<span style='font-size: 20px'>$</span>2.49<span style='font-size: 20px'>/mo</span>",h2Tag.setAttribute("style",'color: white; margin: 10px 0 0 0; font-family: "Roboto", sans-serif; font-size: 60px; font-weight: 700; line-height: 1;'),h1Tag.parentNode.insertBefore(h2Tag,h1Tag.nextSibling);var paragraph=notification.getElementsByTagName("p")[0];paragraph.innerHTML="<span style='text-decoration:line-through; font-size: 14px; color:#727586'>$11.99.mo</span><br>+ 2 Months Free",paragraph.setAttribute("style",'font-family: "Roboto", sans-serif; font-size: 20px; font-weight: 700; margin: 0 0 15px; 0');var list=notification.getElementsByTagName("UL")[0];list.remove();var org_html=mainContent.innerHTML,new_html='<div class="content-wrapper">'+mainContent.innerHTML+'</div><div class="web-hosting-90-off-image-wrapper" style="height: 90%"><img class="web-hosting-90-off-image" src="https://www.000webhost.com/static/default.000webhost.com/images/sales/bf2023/hero.png"></div>';mainContent.innerHTML=new_html;var saleImage=mainContent.getElementsByClassName("web-hosting-90-off-image")[0]}else if(null!=wordpressAdminBody&¬ification.length>0&&null!=mainContent){var bulletPoints = mainContent.getElementsByTagName('li');var replacement=['Increased performance (up to 5x faster) - Thanks to Hostinger’s WordPress Acceleration and Caching solutions','WordPress AI tools - Creating a new website has never been easier','Weekly or daily backups - Your data will always be safe','Fast and dedicated 24/7 support - Ready to help you','Migration of your current WordPress sites to Hostinger is automatic and free!','Try Premium Web Hosting now - starting from $1.99/mo'];for (var i=0;i<bulletPoints.length;i++){bulletPoints[i].innerHTML = replacement[i];}}
+</script>
+</body>
+</html>
